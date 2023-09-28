@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {BrowserQRCodeReader} from "@zxing/browser";
+import React from 'react';
 
 export interface PageProps {
+    onScanButtonClick: () => void
 }
 
-export const Page = () => {
-    return (<div className="day">
-            Day
+export const Page = ({ onScanButtonClick }: PageProps) => {
+    return (
+        <div className="day">
+            <button onClick={onScanButtonClick}>Scan</button>
         </div>
     );
 }

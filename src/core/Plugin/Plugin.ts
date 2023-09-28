@@ -63,7 +63,12 @@ export class Plugin extends ReactPlugin implements PluginInterface {
             (_, container, context) => this.processBlock(
                 container,
                 context,
-                () => createElement(Day),
+                () => createElement(Day, {
+                    onScan: () => {
+                        new SampleModal(this.app, this.codeReader)
+                            .open();
+                    }
+                }),
             ),
         );
     }
@@ -73,8 +78,30 @@ export class Plugin extends ReactPlugin implements PluginInterface {
         context: MarkdownPostProcessorContext,
         elementFactory: () => ReactElement,
     ): void {
+        const root = createRoot(container);
 
-        const videoEl = container.createEl('video', {
+        const containerFactory = () => createElement(SettingsContext.Provider, {
+            value: this.settings,
+        }, createElement(Container, {
+            loading: !this.dataviewApi.index.initialized,
+            className: 'sbs-food',
+        }, elementFactory()));
+
+        this.registerElement(root, context.sourcePath, containerFactory);
+
+        root.render(containerFactory());
+    }
+}
+
+class SampleModal extends Modal {
+    constructor(app: App, protected codeReader: BrowserMultiFormatReader) {
+        super(app);
+    }
+
+    onOpen() {
+        const {contentEl} = this;
+
+        const videoEl = contentEl.createEl('video', {
                 attr: {
                     id: 'video',
                     width: '300',
@@ -83,7 +110,7 @@ export class Plugin extends ReactPlugin implements PluginInterface {
             },
         );
 
-        const resultEl = container.createEl('span', { attr: { id: 'result' }});
+        const resultEl = contentEl.createEl('span', { attr: { id: 'result' }});
 
         this.codeReader.decodeFromVideoDevice(null, videoEl, ((result: any) => {
             console.log(result);
@@ -92,6 +119,11 @@ export class Plugin extends ReactPlugin implements PluginInterface {
         }));
 
         resultEl.setText('Result');
+    }
+
+    onClose() {
+        const {contentEl} = this;
+        contentEl.empty();
     }
 }
 

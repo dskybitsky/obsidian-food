@@ -2,10 +2,11 @@ import React from 'react';
 import { Page } from './Page';
 
 export interface DayProps {
+    onScan: () => void
 }
 
-export const Day = () => {
+export const Day = ({ onScan }: DayProps) => {
     return (
-        <Page />
+        <Page onScanButtonClick={onScan} />
     );
 };
