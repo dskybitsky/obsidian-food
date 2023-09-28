@@ -1,4 +1,4 @@
-import {App, Modal} from 'obsidian';
+import {App, Modal, Setting} from 'obsidian';
 import type { MarkdownPostProcessorContext, PluginManifest } from 'obsidian';
 import { createRoot } from 'react-dom/client';
 import { createElement, ReactElement } from 'react';
@@ -64,8 +64,8 @@ export class Plugin extends ReactPlugin implements PluginInterface {
                 container,
                 context,
                 () => createElement(Day, {
-                    onScan: () => {
-                        new SampleModal(this.app, this.codeReader)
+                    onScan: (setCode) => {
+                        new SampleModal(this.app, this.codeReader, setCode)
                             .open();
                     }
                 }),
@@ -94,7 +94,11 @@ export class Plugin extends ReactPlugin implements PluginInterface {
 }
 
 class SampleModal extends Modal {
-    constructor(app: App, protected codeReader: BrowserMultiFormatReader) {
+    constructor(
+        app: App,
+        protected codeReader: BrowserMultiFormatReader,
+        protected onSubmit: (result: string) => void
+    ) {
         super(app);
     }
 
@@ -113,12 +117,20 @@ class SampleModal extends Modal {
         const resultEl = contentEl.createEl('span', { attr: { id: 'result' }});
 
         this.codeReader.decodeFromVideoDevice(null, videoEl, ((result: any) => {
-            console.log(result);
-
-            resultEl.setText(JSON.stringify(result));
+            if (result && result.text) {
+                resultEl.setText(result.text);
+            }
         }));
 
-        resultEl.setText('Result');
+        new Setting(contentEl)
+            .addButton((btn) =>
+                btn
+                    .setButtonText("Submit")
+                    .setCta()
+                    .onClick(() => {
+                        this.close();
+                        this.onSubmit(resultEl.getText());
+                    }));
     }
 
     onClose() {
