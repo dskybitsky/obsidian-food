@@ -1,0 +1,53 @@
+{
+    "name": "skybitsky-food",
+    "description": "A plugin for food tracking.",
+    "author": "Skybitsky",
+    "license": "MIT",
+    "version": "0.1",
+    "main": "main.js",
+    "scripts": {
+        "lint": "eslint . --ext .ts,.tsx",
+        "build": "rollup --config rollup.config.js --environment BUILD:production",
+        "dev": "rollup --config rollup.config.js -w"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^21.0.1",
+        "@rollup/plugin-node-resolve": "^13.0.6",
+        "@rollup/plugin-typescript": "^8.3.0",
+        "@types/react": "^18.2.22",
+        "@types/react-dom": "^18.2.7",
+        "@typescript-eslint/eslint-plugin": "^6.7.2",
+        "@typescript-eslint/parser": "^6.7.2",
+        "eslint": "^8.49.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-airbnb-typescript": "^17.1.0",
+        "eslint-plugin-import": "^2.28.1",
+        "eslint-plugin-jsx-a11y": "^6.7.1",
+        "eslint-plugin-react": "^7.33.2",
+        "prettier": "^3.0.3",
+        "rollup": "^2.60.0",
+        "rollup-plugin-copy": "^3.5.0",
+        "rollup-plugin-polyfill-node": "^0.6.2",
+        "rollup-plugin-styles": "^4.0.0",
+        "tslib": "^2.6.2",
+        "typescript": "^4.4.4"
+    },
+    "dependencies": {
+        "@zxing/browser": "^0.1.4",
+        "@zxing/library": "^0.20.0",
+        "dayjs": "^1.11.10",
+        "lucide-react": "^0.279.0",
+        "obsidian": "latest",
+        "obsidian-dataview": "0.5.56",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "skybitsky-common": "git+ssh://git@github.com:dskybitsky/obsidian-common.git#0.2.1"
+    },
+    "extendInfo": {
+        "NSMicrophoneUsageDescription": "Please give us access to your microphone",
+        "NSCameraUsageDescription": "Please give us access to your camera",
+        "com.apple.security.device.audio-input": true,
+        "com.apple.security.device.camera": true
+    }
+}

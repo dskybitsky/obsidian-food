@@ -1,0 +1,33 @@
+.sbs-budget {
+    --table-header-bg-color: var(--color-base-25);
+    --table-even-row-bg-color: var(--color-base-20);
+}
+
+.theme-dark .sbs-budget  {
+    --table-header-bg-color: var(--color-base-35);
+    --table-even-row-bg-color: var(--color-base-30);
+}
+
+.sbs-budget .dir-in {
+    color: var(--color-green);
+}
+
+.sbs-budget .dir-out {
+    color: var(--color-red);
+}
+
+.sbs-budget .table {
+    display: grid;
+    grid-column-gap: 0.1rem;
+}
+
+.sbs-budget .table > span {
+    display: flex;
+    padding: 0.75rem 1rem;
+    font-size: var(--font-adaptive-small);
+    align-items: center;
+}
+
+.sbs-budget .table > span svg:first-child {
+    margin-inline-end: 0.25rem;
+}

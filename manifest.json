@@ -1,0 +1,10 @@
+{
+	"id": "skybitsky-food",
+	"name": "Skybitsky's Food",
+	"version": "0.1",
+	"minAppVersion": "0.12.0",
+	"description": "A plugin for food tracking.",
+	"author": "Skybitsky",
+	"authorUrl": "https://github.com/dskybitsky",
+	"isDesktopOnly": false
+}
